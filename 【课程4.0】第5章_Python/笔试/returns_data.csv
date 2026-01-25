@@ -1,0 +1,11 @@
+Order_ID,Product_ID,Product_Category,Customer_ID,Return_Reason,Return_Amount,Order_Amount,Order_Date,Return_Date
+10001,P001,Electronics,C001,Damaged,150,200,2024/1/1,2024/1/5
+10002,P002,Clothing,C002,Wrong Size,50,80,2024/1/3,2024/1/10
+10003,P003,Home Appliances,C003,Not as Expected,120,180,2024/1/4,2024/1/7
+10004,P001,Electronics,C004,Damaged,150,200,2024/1/5,2024/1/9
+10005,P002,Clothing,C002,Wrong Size,50,80,2024/1/6,2024/1/12
+10006,P004,Toys,C005,Defective,30,40,2024/1/8,2024/1/11
+10007,P003,Home Appliances,C006,Not as Expected,120,180,2024/1/9,2024/1/13
+10008,P001,Electronics,C007,Wrong Size,150,200,2024/1/10,2024/1/15
+10009,P005,Furniture,C008,Damaged,200,250,2024/1/12,2024/1/16
+10010,P002,Clothing,C009,Wrong Size,50,80,2024/1/13,2024/1/17

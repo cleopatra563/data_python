@@ -1,0 +1,5 @@
+product_id,product_name,category,stock_quantity,reorder_level
+1001,iPhone 13,Electronics,50,10
+1002,Samsung Galaxy S21,Electronics,30,5
+1003,AirPods Pro,Accessories,20,8
+1004,Apple Watch,Accessories,10,5
