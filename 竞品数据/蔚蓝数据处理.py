@@ -11,9 +11,10 @@
 4、制作的透视表导出
 """
 #检测csv编码
+csv_file = '蔚蓝每日双端数据 (5).csv'
 def detect_csv():
     import chardet
-    with open('蔚蓝每日双端数据 (5).csv','rb') as f:
+    with open(csv_file,'rb') as f:
         result = chardet.detect(f.read())
     csv_encoding = result['encoding']
     print(f'csv_encoding:{csv_encoding}')
@@ -21,49 +22,42 @@ def detect_csv():
 # 获取主表和副表
 import pandas as pd
 path = '蔚蓝每日双端数据.xlsx'
-orgin_data = pd.read_excel(path,sheet_name = '蔚蓝每日双端数据',header = 0)
-print(orgin_data.head())
-##日期格式化 年-月-日
-orgin_data['日期'] = pd.to_datetime(orgin_data['日期']).dt.strftime('%Y-%m-%d')
-orgin_data['日期'] = pd.to_datetime().dt.strftime()
+origin_data = pd.read_excel(path,sheet_name = '蔚蓝每日双端数据',header = 0)
+sub_data = pd.read_csv(csv_file,encoding= 'utf-16',sep = '	') #检测编码，使用分隔符
+print(origin_data.head())
+
+# 日期格式化 年-月-日
+origin_data['日期'] = pd.to_datetime(origin_data['日期']).dt.strftime('%Y-%m-%d')
+sub_data['日期'] = pd.to_datetime(sub_data['日期']).dt.strftime('%Y-%m-%d')
 
 '''
+# 抽象化
 data_column = '日期'
-if date_colmn in .columns
-
-
-
+if data_column in origin_data.columns:
+    pd.to_datetime(origin_data[data_column]).dt.strftime('%Y-%m-%d')
 '''
-
-downloadData = orgin_data[['日期','下载量']]
-print(downloadData.head())
-
-path_sub = '蔚蓝每日双端数据 (5).csv'
-sub_data = pd.read_csv(path_sub,encoding= 'utf-16',sep = '	') #检测编码，使用分隔符
-##日期格式化 年-月-日
-data_column = '日期'
-if data_column in sub_data.columns:
-    sub_data[data_column] = pd.to_datetime(sub_data[data_column]).dt.strftime('%Y-%m-%d')
 
 # 两表去重
-merged_data = pd.concat([orgin_data,sub_data],ignore_index = True) #重置索引
+merged_data = pd.concat([origin_data,sub_data],ignore_index = True) #重置索引
 print(f'merged:{merged_data}')
-output_file_path = 'merged_data.csv'
-merged_data.to_csv(output_file_path, index=False, encoding='utf-8-sig') #不写入索引，utf-8编码，正确显示中文
-
-#处理时间格式
-
-
+output_mergeFile_path = 'merged_data.csv'
+merged_data.to_csv(output_mergeFile_path, index=False, encoding='utf-8-sig') #不写入索引，utf-8编码，正确显示中文
 
 # 数据透视表
-
-
-
+pivot_data = pd.pivot_table(
+    merged_data
+    ,values = ['下载量','收入']
+    ,index = ['日期']
+    ,columns = ['国家','平台']
+    ,aggfunc = {'下载量':'sum','收入':'sum'}
+    ,fill_value = 0 # 填充缺失值
+)
+pivot_data.reset_index(inplace=True) # 复位日期索引，成为普通列
+pivot_data.sort_values(by='下载量',ascending=False) # anzhao
 
 #数据透视表导出
-
-
-
+output_pivotFile_path = 'pivot_data.csv'
+pivot_data.to_csv(output_pivotFile_path,index=False,encoding = 'utf-8-sig')
 
 # 定义主函数
 # def main():
