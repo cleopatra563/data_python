@@ -13,14 +13,15 @@
 import pandas as pd
 #检测csv编码
 csv_file = '蔚蓝每日双端数据 (5).csv'
-def detect_csv():
+
+def detect_csv(): # csv编码检查
     import chardet
     with open(csv_file,'rb') as f:
         result = chardet.detect(f.read())
     csv_encoding = result['encoding']
     print(f'csv_encoding:{csv_encoding}')
 
-def merge_pivot():
+def merge_pivot(): #数据处理
     # 获取主表和副表
     path = '蔚蓝每日双端数据.xlsx'
     origin_data = pd.read_excel(path,sheet_name = '蔚蓝每日双端数据',header = 0)
