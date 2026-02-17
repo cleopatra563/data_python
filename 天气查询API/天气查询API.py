@@ -36,8 +36,8 @@ def get_city_weather():
         weather_response.raise_for_status()
         weather_data = weather_response.json() # 返回字典
         '''
+        response = requests.get()
         response.raise_for_status()
-        response.json()
         
         data.get('status') != 200  天气接口返回错误状态码
         data.get('data').get('cityInfo')
