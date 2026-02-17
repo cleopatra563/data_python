@@ -3,3 +3,9 @@
 /workspace.xml
 # 基于编辑器的 HTTP 客户端请求
 /httpRequests/
+<<<<<<< HEAD
+=======
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+>>>>>>> 2a2019d0b21de90207bc29d6ce2c8c5e10b6f12e
