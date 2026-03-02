@@ -11,8 +11,9 @@
 4、制作的透视表导出
 """
 import pandas as pd
+import
 #检测csv编码
-csv_file = '蔚蓝每日双端数据 (6).csv'
+csv_file = '蔚蓝每日双端数据 (5).csv'
 
 def detect_csv(): # csv编码检查
     import chardet
