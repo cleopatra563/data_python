@@ -11,7 +11,7 @@
 4、制作的透视表导出
 """
 import pandas as pd
-import
+import time
 #检测csv编码
 csv_file = '蔚蓝每日双端数据 (5).csv'
 
@@ -58,9 +58,9 @@ def merge_pivot(): #数据处理
     pivot_data.reset_index(inplace=True) # 复位日期索引，成为普通列
 
     #数据透视表导出
+    timestamp = time.strftime("%H%M%S")
     output_pivotFile_path = 'pivot_data.csv'
-    pivot_data.to_csv(output_pivotFile_path,index=False,encoding = 'utf-8-sig')
-
+    pivot_data.to_csv(f"{output_pivotFile_path}_{timestamp}",index=False,encoding = 'utf-8-sig')
 # 定义主函数
 def main():
     merge_pivot()
