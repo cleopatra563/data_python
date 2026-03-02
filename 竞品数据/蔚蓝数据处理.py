@@ -13,7 +13,7 @@
 import pandas as pd
 import time
 #检测csv编码
-csv_file = '蔚蓝每日双端数据 (5).csv'
+csv_file = '蔚蓝每日双端数据 (6).csv'
 
 def detect_csv(): # csv编码检查
     import chardet
@@ -24,7 +24,7 @@ def detect_csv(): # csv编码检查
 
 def merge_pivot(): #数据处理
     # 获取主表和副表
-    path = '蔚蓝每日双端数据.xlsx'
+    path = '蔚蓝每日双端数据.xlsx' # 主表，名字写死
     origin_data = pd.read_excel(path,sheet_name = '蔚蓝每日双端数据',header = 0)
     sub_data = pd.read_csv(csv_file,encoding= 'utf-16',sep = '	') #检测编码，使用分隔符
     print(origin_data.head())
@@ -59,8 +59,8 @@ def merge_pivot(): #数据处理
 
     #数据透视表导出
     timestamp = time.strftime("%H%M%S")
-    output_pivotFile_path = 'pivot_data.csv'
-    pivot_data.to_csv(f"{output_pivotFile_path}_{timestamp}",index=False,encoding = 'utf-8-sig')
+    output_pivotFile_path = f'pivot_data_{timestamp}.csv'
+    pivot_data.to_csv(output_pivotFile_path,index=False,encoding = 'utf-8-sig')
 # 定义主函数
 def main():
     merge_pivot()
