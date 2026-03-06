@@ -1,7 +1,6 @@
 import time
 import pandas as pd
 
-
 try:
     # 1. 加载数据
     file_path = 'orgin_data.xlsx'

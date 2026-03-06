@@ -6,3 +6,12 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+#忽略 PyCharm 的所有项目配置文件
+.idea/
+#忽略 Python 编译产生的缓存文件
+*.pyc
+__pycache__/
+#项目下创建了虚拟环境，也应该忽略它
+venv/
+.venv/
