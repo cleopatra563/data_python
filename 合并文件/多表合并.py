@@ -23,8 +23,15 @@ def merge_csv_files():
                 df = pd.read_csv(file,encoding='utf-8')
             except:
                 df = pd.read_csv(file,encoding = 'gbk')
-            # 增加一列
-            df['来源'] = os.path.basename(file).replace('.csv','')
+
+            filename = os.path.basename(file).replace('.csv','')
+            # 增加新增日期和状态
+            if len(filename.split('_'))==2:
+                df['新增日期'] = filename.split('_')[0]
+                df['状态'] = filename.split('_')[1][2:4]
+
+            else:
+                df['来源'] = filename
             all_data.append(df)
 
         #2.合并多个文件
@@ -33,6 +40,10 @@ def merge_csv_files():
         #3.输出合并结果
         timestamp = time.strftime('%H%M%S')
         output_file = f'合成后文件_{timestamp}.csv'
+
+        ##调整序列
+        cols = ['新增日期','状态']+[c for c in result.columns if c not in ['新增日期','状态']]
+        result = result[cols]
         result.to_csv(output_file, index=False, encoding='utf-8-sig')
 
         print(f"✅处理完成！共合并{len(filelist)}个文件，📂最终文件已保存为：{output_file}")
@@ -44,4 +55,4 @@ def merge_csv_files():
 
 
 if __name__ == '__main__':
-    merge_csv_index = merge_csv_files()
+    merge_csv_files()
