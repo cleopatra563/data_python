@@ -46,9 +46,13 @@ def merge_csv_files():
         result = result[cols]
         result.to_csv(output_file, index=False, encoding='utf-8-sig')
 
-        print(f"✅处理完成！共合并{len(filelist)}个文件，📂最终文件已保存为：{output_file}")
-        print("\n---表格预览(前10行)---")
+        print(f"✅处理完成！")
+        print(f"📊共合并 {len(filelist)} 个文件")
+        print(f"📂最终文件: {output_file}")
+        print("\n" + "=" * 50)
+        print("📋表格预览 (前10行)")
         print(result.head(10))
+        print("=" * 50)
 
     except Exception as e:
         print(f"❌处理失败，错误原因：{e}")
