@@ -13,7 +13,7 @@
 import pandas as pd
 import time
 #检测csv编码
-csv_file = '蔚蓝每日双端数据 (6).csv'
+csv_file = '蔚蓝每日双端数据 (3).csv'
 
 def detect_csv(): # csv编码检查
     import chardet
@@ -58,7 +58,7 @@ def merge_pivot(): #数据处理
     pivot_data.reset_index(inplace=True) # 复位日期索引，成为普通列
 
     #数据透视表导出
-    timestamp = time.strftime("%H%M%S")
+    timestamp = time.strftime("%Y%m%d%H%M%S")
     output_pivotFile_path = f'pivot_data_{timestamp}.csv'
     pivot_data.to_csv(output_pivotFile_path,index=False,encoding = 'utf-8-sig')
 # 定义主函数

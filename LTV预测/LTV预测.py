@@ -14,5 +14,5 @@ def func_name(*args,**kwargs):
 
 
 if __name__ == '__main__':
-    def func_name()
+    func_name()
 
