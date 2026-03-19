@@ -26,10 +26,10 @@ import pandas as pd
 from datetime import datetime,timedelta
 
 # ----步骤1：配置基础信息----
-ACCESS_TOKEN = 'YOUR_ACCESS_TOKEN_HERE' # 你的token访问令牌
-APP_ID = 'YOUR_APP_ID_HERE' # 你的应用ID
-APP_SECRET = 'YOUR_APP_SECRET_HERE' # 你的secret
-AD_ACCOUNT_ID = 'YOUR_AD_ACCOUNT_ID_HERE' # 你的广告账户
+ACCESS_TOKEN = 'EAA8ZAobXXw6kBRBBYlzECbG5GhQizAvCEtkazhetZBdujadxy1Q1fkZCwH1d7IffoRIz0OlEyqvT08ZC0hsx1WGeWjR7wEnD5kCs4FQi9ToB5OxvoIYy8zJszPsM6zOk7eA6ibHE7oOVq4jmGIbivrPw5RHRcssSVE2GqoVZCTx0wGtVrZB1hLzZCucZB5htzQZDZD' # 你的token访问令牌
+APP_ID = '4250306981905321' # 你的应用ID
+APP_SECRET = 'adf87c091a43c70e53b04e533c469e84' # 你的secret
+AD_ACCOUNT_ID = 'act_1379725066317604' # 你的广告账户
 
 DAILY_BUDGET = 100 #美元预算
 
@@ -47,36 +47,30 @@ def init_api():
 # ----步骤3：调用API获取Insights数据----
 def get_spend():
     """
-    获取当日广告花费
+    获取当日广告花费（严格今日）
     """
-    account = AdAccount(AD_ACCOUNT_ID) # 拿到对应账户
-    today = datetime.now()
-    since = (today - timedelta(days = 13)).strftime('%Y-%m-%d') #最近14天
-    until = today.strftime('%Y-%m-%d')
+    account = AdAccount(AD_ACCOUNT_ID)
+
+    today = datetime.now().strftime('%Y-%m-%d')
+
     params = {
-        "level":"adset", # 按adset拆分
-        "time_range":{
-            "since":since,
-            "until":until
-        },
-        "time_increment" : 1 # 按天拆分
+        "level": "account",   # 先用account级，避免重复
+        "time_range": {
+            "since": today,
+            "until": today
+        }
     }
+
     fields = [
-        "date_start"
-        "campaign_name", # 广告系列
-        "adset_name", # 广告组
-        "spend", # 花费
-        "impressions", # 曝光量
-        "clicks", #点击量
-        "cpc", #平均点击成本
-        "ctr" #点击率
+        "spend"
     ]
 
-    instights = account.get_insights(fields = fields,params = params) # 获取数据 对应HTTP API GET/act_xxx/insights
-    total_spend = 0
+    insights = account.get_insights(fields=fields, params=params)
 
-    for item in instights:
-        total_spend += float(item.get("spend",0))
+    total_spend = 0
+    for item in insights:
+        total_spend += float(item.get("spend", 0))
+
     return total_spend
 
 # ----步骤4：逻辑监控与报警----
