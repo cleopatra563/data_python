@@ -25,11 +25,19 @@ from facebook_business.adobjects.adsinsights import AdsInsights
 import pandas as pd
 from datetime import datetime,timedelta
 
+
+# ========= 飞书配置 =========
+WEBHOOK = "https://open.larksuite.com/open-apis/bot/v2/hook/3b97dad8-443a-491d-91b6-9199d6018b66"
+
+def send_feishu():
+    # 富文本方式展示
+    pass
+
 # ----步骤1：配置基础信息----
-APP_ID = '961833689598748' # 你的应用ID
-APP_SECRET = '0aee701795479a7387f75d83a728f519' # 你的secret
 AD_ACCOUNT_ID = 'act_1379725066317604' # 你的广告账户
-# 你的token访问令牌
+APP_ID = '961833689598748' # 你的应用ID（拉取数据专用）
+APP_SECRET = '0aee701795479a7387f75d83a728f519' # 你的应用secret（用于鉴权）
+# 你的token访问令牌（用于拉取数据）
 ACCESS_TOKEN = 'EAANqyFtmyxwBRK7SZC3CAHKAZCHZChCYsOc7OoA4RddGtGqc2PjmHCRmAyxqr3ibD2aHRU0JuAqZBXvmLtr4hbSquflE9k7d8XGnueZAwAIBAlcppw6exxjrgzMNiXsLnGWEUFJbUAuSMZA0OdEeNAaeZCIBVQ9UJUuYGZC8fO3BViFsahaE8vETGcu5earQPgZDZD'
 
 DAILY_BUDGET = 100 #美元预算
@@ -57,8 +65,8 @@ def get_spend():
     params = {
         "level": "account",   # 先用account级，避免重复
         "time_range": {
-            "since": today,
-            "until": today
+            "since": '2026-02-04',
+            "until": '2026-02-18'
         }
     }
 
