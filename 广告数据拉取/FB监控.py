@@ -71,16 +71,23 @@ def get_spend():
     }
 
     fields = [
-        "spend"
+        "spend",
+        "impressions",
+        "clicks"
     ]
 
     insights = account.get_insights(fields=fields, params=params)
 
     total_spend = 0
+    total_impressions = 0
+    total_clicks = 0
     for item in insights:
         total_spend += float(item.get("spend", 0))
+        total_impressions += int(item.get("impressions", 0))
+        total_clicks += int(item.get("clicks", 0))
 
-    return total_spend
+    return total_spend, total_impressions, total_clicks
+
 
 # ----步骤4：逻辑监控与报警----
 def alert(msg):
@@ -93,8 +100,8 @@ def alert(msg):
 def main():
     try:
         init_api()
-        spend = get_spend()
-        print(f"今日花费:${spend}")
+        spend,impressions,clicks = get_spend()
+        print(f"今日花费:${spend}，今日展示数:{impressions}，今日点击数：{clicks}")
 
         #预算判断
         if spend > DAILY_BUDGET:
