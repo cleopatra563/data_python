@@ -23,6 +23,7 @@ from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.adsinsights import AdsInsights
 import pandas as pd
+import os
 from datetime import datetime,timedelta
 
 
@@ -34,11 +35,15 @@ def send_feishu():
     pass
 
 # ----步骤1：配置基础信息----
-AD_ACCOUNT_ID = 'act_1379725066317604' # 你的广告账户
-APP_ID = '961833689598748' # 你的应用ID（拉取数据专用）
-APP_SECRET = '0aee701795479a7387f75d83a728f519' # 你的应用secret（用于鉴权）
-# 你的token访问令牌（用于拉取数据）
-ACCESS_TOKEN = 'EAANqyFtmyxwBRK7SZC3CAHKAZCHZChCYsOc7OoA4RddGtGqc2PjmHCRmAyxqr3ibD2aHRU0JuAqZBXvmLtr4hbSquflE9k7d8XGnueZAwAIBAlcppw6exxjrgzMNiXsLnGWEUFJbUAuSMZA0OdEeNAaeZCIBVQ9UJUuYGZC8fO3BViFsahaE8vETGcu5earQPgZDZD'
+AD_ACCOUNT_ID = os.getenv("FB_AccountID")
+APP_ID = os.getenv("FB_APPID")
+APP_SECRET = os.getenv("FB_Secret")
+ACCESS_TOKEN = os.getenv("FB_TOKEN")
+# AD_ACCOUNT_ID = 'act_1379725066317604' # 你的广告账户
+# APP_ID = '961833689598748' # 你的应用ID（拉取数据专用）
+# APP_SECRET = '0aee701795479a7387f75d83a728f519' # 你的应用secret（用于鉴权）
+# # 你的token访问令牌（用于拉取数据）
+# ACCESS_TOKEN = 'EAANqyFtmyxwBRK7SZC3CAHKAZCHZChCYsOc7OoA4RddGtGqc2PjmHCRmAyxqr3ibD2aHRU0JuAqZBXvmLtr4hbSquflE9k7d8XGnueZAwAIBAlcppw6exxjrgzMNiXsLnGWEUFJbUAuSMZA0OdEeNAaeZCIBVQ9UJUuYGZC8fO3BViFsahaE8vETGcu5earQPgZDZD'
 
 DAILY_BUDGET = 100 #美元预算
 
