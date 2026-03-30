@@ -51,6 +51,7 @@ def get_fb_campaign_data():
         })
 
     df = pd.DataFrame(data)
+    df["campaign_id"] = df["campaign_id"].astype(str)
     return df
 
 # ----保存CSV----

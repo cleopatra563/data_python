@@ -52,6 +52,7 @@ df[["prefix", "country", "type"]] = df["campaign"].str.extract(r"^(\d+)-([A-Z]+)
 
 # campaign_id
 df["campaign_id"] = df["campaign"].str.extract(r"\((\d+)\)")
+df["campaign_id"] = df["campaign_id"].astype(str)
 
 # ===== 类型再拆（可选）=====
 df[["stage", "material"]] = df["type"].str.split("-", n=1, expand=True)
