@@ -14,6 +14,10 @@ import pandas as pd
 import time
 from pandas.io.sas.sas_constants import subheader_count_length
 
+# path = r'D:\WorkFlow\data_python\竞品数据\蔚蓝每日双端数据.xlsx'  # 主表，名字写死
+# origin_data = pd.read_excel(path, sheet_name='蔚蓝每日双端数据', index_col=0)
+# print(origin_data.shape)
+
 def detect_csv(file_path): # csv编码检查
     import chardet
     with open(file_path,'rb') as f:
@@ -25,20 +29,19 @@ def detect_csv(file_path): # csv编码检查
 def merge_pivot(csv_file): #数据处理
     # 获取主表和副表
     path = r'D:\WorkFlow\data_python\竞品数据\蔚蓝每日双端数据.xlsx' # 主表，名字写死
-    origin_data = pd.read_excel(path,sheet_name = '蔚蓝每日双端数据',index_col = 0)
+    origin_data = pd.read_excel(path,sheet_name = '蔚蓝每日双端数据') #去掉了index_col，让日期列变为普通列
     encoding = detect_csv(csv_file)
-    sub_data = pd.read_csv(csv_file,encoding= encoding,sep = '	') #检测编码，使用分隔符
+    sub_data = pd.read_csv(csv_file,encoding= encoding,sep = '\t') #检测编码，使用分隔符
     print(origin_data.head())
 
     # 日期格式化 年-月-日
-    origin_data['日期'] = pd.to_datetime(origin_data['日期'],format='%Y%m%d')
-    sub_data['日期'] = pd.to_datetime(sub_data['日期'],format='%Y%m%d')
-    # origin_data['日期'] = pd.to_datetime(origin_data['日期']).dt.strftime('%Y-%m-%d')
-    # sub_data['日期'] = pd.to_datetime(sub_data['日期']).dt.strftime('%Y-%m-%d')
+    origin_data['日期'] = pd.to_datetime(origin_data['日期'],format='mixed')
+    sub_data['日期'] = pd.to_datetime(sub_data['日期'],format='mixed')
 
     # 两表去重
     merged_data = pd.concat([origin_data,sub_data],ignore_index = True) #重置索引
     merged_data.drop_duplicates(inplace = True)
+    merged_data['日期'] = merged_data['日期'].dt.strftime('%Y%m%d') #csv输出格式更简洁
     print(f'merged:{merged_data}')
     output_mergeFile_path = 'merged_data.csv'
     merged_data.to_csv(output_mergeFile_path, index=False, encoding='utf-8-sig') #不写入索引，utf-8编码，正确显示中文
@@ -64,6 +67,6 @@ def process_data(csv_file):
     merge_pivot(csv_file)
 
 # 测试用例
-# if __name__ == '__main__':
-#     test_file = 'test.csv'
-#     process_data(test_file)
+if __name__ == '__main__':
+    test_file = r"D:\WorkFlow\data_python\竞品数据\蔚蓝每日双端数据 (4).csv"
+    merge_pivot(test_file)
